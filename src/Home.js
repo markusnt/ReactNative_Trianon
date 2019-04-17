@@ -12,6 +12,10 @@ import api from './services/api'
 export default class Home extends Component {
     
     static navigationOptions = {
+      headerTitleStyle: { 
+        textAlign:"center", 
+        flex:1 
+    },
         title: 'Mesas'
     };
 
@@ -54,7 +58,7 @@ export default class Home extends Component {
             // <SafeAreaView>
             <FlatList
               data={this.state.dataSource}
-              keyExtractor={({id}, index) => id}
+              keyExtractor={({id}, index) => 'id'+index}
               renderItem={this.renderMesa}
               />
           // </SafeAreaView>
