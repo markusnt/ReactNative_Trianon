@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { FloatingAction } from 'react-native-floating-action';
 import {
   Platform,
   StyleSheet,
@@ -14,7 +15,7 @@ export default class Home extends Component {
 
   static navigationOptions = {
     headerTitleStyle: {
-      
+
     },
     title: 'Mesas'
   };
@@ -36,44 +37,52 @@ export default class Home extends Component {
       .then((responseJson) => {
 
         this.setState({
-          dataSource: responseJson,
+          mesas: responseJson,
         });
       })
   }
 
 
-  renderMesa = ({ item }) => (
-    <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={styles.item}>
-      <View >
-      <Text style={styles.text}>{item.cd_mesa}</Text>
-      </View>
-    </TouchableOpacity>
-  )
-
-  // formatData = (dataSource, numColumns) => {
-  //   const numberOfFullRows = Math.floor(dataSource.length / numColumns);
-  
-  //   let numberOfElementsLastRow = dataSource.length - (numberOfFullRows * numColumns);
-  //   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-  //     dataSource.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
-  //     numberOfElementsLastRow++;
-  //   }
-  
-  //   return dataSource;
-  // };
-  
-  render() {
-    const numRow = 7
+  renderMesa = ({ item, index }) => {
+    if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
     return (
-     <SafeAreaView> 
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={styles.item}>
+        <View >
+          <Text style={styles.text}>{item.cd_mesa}</Text>
+        </View>
+      </TouchableOpacity>
+      
+    )
+    
+  }
+
+  render() {
+
+    const numColumns = 7
+
+    const formatData = (mesas, numColumns) => {
+      const numberOfFullRows = Math.floor(mesas.length / numColumns);
+
+      let numberOfElementsLastRow = mesas.length - (numberOfFullRows * numColumns);
+      while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+        mesas.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
+        numberOfElementsLastRow++;
+      }
+
+      return mesas;
+    };
+
+    return (
+
       <FlatList
-        data={this.state.dataSource}
+        data={formatData(this.state.mesas, numColumns)}
         style={styles.container}
         keyExtractor={({ id }, index) => 'id' + index}
         renderItem={this.renderMesa}
-        numColumns={numRow}
+        numColumns={numColumns}
       />
-     </SafeAreaView>
+      
+      
     );
   }
 }
@@ -81,7 +90,7 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    backgroundColor: '#4D243D',
+    backgroundColor: '#90a4ae',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 4,
@@ -90,8 +99,11 @@ const styles = StyleSheet.create({
     width: 55,
     borderRadius: 5
   },
+  itemInvisible: {
+    backgroundColor: 'transparent'
+  },
   text: {
-    color: '#fff',
+    color: '#000000',
   }
 });
 

@@ -21,9 +21,9 @@ export default class Grupo extends Component {
     constructor() {
         super();
         this.state = {
-          grupos: []
+            grupos: []
         }
-      }
+    }
 
     componentDidMount() {
         this.getGruposApi();
@@ -35,29 +35,45 @@ export default class Grupo extends Component {
             .then((responseJson) => {
 
                 this.setState({
-                    dataSource: responseJson,
+                    grupos: responseJson,
                 });
             })
     }
 
-    renderGrupo = ({ item }) => (
-        <TouchableOpacity onPress={() => { }} style={styles.item}>
-            <View >
-                <Text style={styles.text}>{item.ds_grupo}</Text>
-            </View>
-        </TouchableOpacity>
-    )
+    renderGrupo = ({ item, index }) => {
+        if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
+        return (
+            <TouchableOpacity onPress={() => { }} style={styles.item}>
+                <View >
+                    <Text style={styles.text}>{item.ds_grupo}</Text>
+                </View>
+            </TouchableOpacity>
+        )
+    }
 
     render() {
-        const numRow = 2
+        const numColumns = 2
+
+        const formatData = (grupos, numColumns) => {
+            const numberOfFullRows = Math.floor(grupos.length / numColumns);
+
+            let numberOfElementsLastRow = grupos.length - (numberOfFullRows * numColumns);
+            while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+                grupos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
+                numberOfElementsLastRow++;
+            }
+
+            return grupos;
+        };
+
         return (
             <SafeAreaView>
                 <FlatList
-                    data={this.state.dataSource}
+                    data={formatData(this.state.grupos, numColumns)}
                     style={styles.container}
                     keyExtractor={({ id }, index) => 'id' + index}
                     renderItem={this.renderGrupo}
-                    numColumns={numRow}
+                    numColumns={numColumns}
                 />
             </SafeAreaView>
         );
@@ -66,17 +82,20 @@ export default class Grupo extends Component {
 
 const styles = StyleSheet.create({
     item: {
-      flex: 1,
-      backgroundColor: '#4D243D',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginTop: 4,
-      margin: 1.70,
-      height: 55,
-      width: 55,
-      borderRadius: 5
+        flex: 1,
+        backgroundColor: '#90a4ae',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 4,
+        margin: 1.70,
+        height: 55,
+        width: 55,
+        borderRadius: 5
+    },
+    itemInvisible: {
+        backgroundColor: 'transparent'
     },
     text: {
-      color: '#fff',
+        color: '#000000',
     }
-  });
+});

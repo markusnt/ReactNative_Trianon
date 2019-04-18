@@ -45,7 +45,7 @@ export default class Login extends Component {
                         onChangeText={texto => this.setState({ senha: texto })}
                         secureTextEntry={true} />
 
-                    <Button title='ENTRAR'
+                    <Button title='ENTRAR' color="#0080FF"
                          onPress={() => this.props.navigation.navigate('Home')}/>
 
                 </View>
@@ -84,5 +84,5 @@ input: {
 mensagem: {
     marginTop: 15,
     color: '#e74c3c'
-}
+},
 })
