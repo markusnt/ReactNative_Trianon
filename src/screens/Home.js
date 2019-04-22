@@ -23,7 +23,8 @@ export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      mesas: []
+      mesas: [],
+      refreshing: false
     }
   }
 
@@ -32,28 +33,55 @@ export default class Home extends Component {
   }
 
   getMesasApi = async () => {
+    this.setState({ loading: true })
     return await fetch('http://192.168.1.179:1337/mesa')
       .then((response) => response.json())
       .then((responseJson) => {
 
         this.setState({
           mesas: responseJson,
+          loading: false,
+          refreshing: false
         });
+      })
+      .catch(error => {
+        this.setState({ error, loading: false })
       })
   }
 
 
   renderMesa = ({ item, index }) => {
     if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
+    if (item.st_mesa === "Atendimentoo") {
+      return <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={[styles.item, styles.mesaAtendimento]}>
+        <View >
+          <Text style={styles.text}>{item.cd_mesa}</Text>
+        </View>
+      </TouchableOpacity>
+    }
+    if (item.st_mesa === "Pre Conta Solicitada") {
+      return <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={[styles.item, styles.mesaPreConta]}>
+        <View >
+          <Text style={styles.text}>{item.cd_mesa}</Text>
+        </View>
+      </TouchableOpacity>
+    }
     return (
       <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={styles.item}>
         <View >
           <Text style={styles.text}>{item.cd_mesa}</Text>
         </View>
       </TouchableOpacity>
-      
     )
-    
+  }
+
+
+  handleRefresh = () => {
+    this.setState({
+      refreshing: true,
+    }, () => {
+      this.getMesasApi()
+    })
   }
 
   render() {
@@ -80,9 +108,11 @@ export default class Home extends Component {
         keyExtractor={({ id }, index) => 'id' + index}
         renderItem={this.renderMesa}
         numColumns={numColumns}
+        refreshing={this.state.refreshing}
+        onRefresh={this.handleRefresh}
       />
-      
-      
+
+
     );
   }
 }
@@ -90,7 +120,7 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    backgroundColor: '#90a4ae',
+    backgroundColor: '#5fb769',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 4,
@@ -99,9 +129,19 @@ const styles = StyleSheet.create({
     width: 55,
     borderRadius: 5
   },
+
   itemInvisible: {
     backgroundColor: 'transparent'
   },
+
+  mesaAtendimento: {
+    backgroundColor: '#b76c5f'
+  },
+
+  mesaPreConta: {
+    backgroundColor: '#b7b45f'
+  },
+
   text: {
     color: '#000000',
   }
