@@ -55,7 +55,7 @@ export default class Home extends Component {
     if (item.st_mesa === "Atendimentoo") {
       return <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={[styles.item, styles.mesaAtendimento]}>
         <View >
-          <Text style={styles.text}>{item.cd_mesa}</Text>
+          <Text style={styles.textMesaAtendimento}>{item.cd_mesa}</Text>
         </View>
       </TouchableOpacity>
     }
@@ -86,7 +86,7 @@ export default class Home extends Component {
 
   render() {
 
-    const numColumns = 7
+    const numColumns = 5
 
     const formatData = (mesas, numColumns) => {
       const numberOfFullRows = Math.floor(mesas.length / numColumns);
@@ -120,12 +120,12 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    backgroundColor: '#5fb769',
+    backgroundColor: '#1dff00',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 4,
     margin: 1.70,
-    height: 55,
+    height: 65,
     width: 55,
     borderRadius: 5
   },
@@ -135,15 +135,21 @@ const styles = StyleSheet.create({
   },
 
   mesaAtendimento: {
-    backgroundColor: '#b76c5f'
+    backgroundColor: '#ff0000'
   },
 
   mesaPreConta: {
-    backgroundColor: '#b7b45f'
+    backgroundColor: '#f2ff00'
   },
 
   text: {
+    fontSize: 20,
     color: '#000000',
+  },
+
+  textMesaAtendimento: {
+    fontSize: 20,
+    color: '#FFF',
   }
 });
 
