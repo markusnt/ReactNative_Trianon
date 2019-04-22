@@ -86,7 +86,7 @@ export default class Home extends Component {
 
   render() {
 
-    const numColumns = 5
+    const numColumns = 4
 
     const formatData = (mesas, numColumns) => {
       const numberOfFullRows = Math.floor(mesas.length / numColumns);
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 4,
     margin: 1.70,
-    height: 65,
+    height: 75,
     width: 55,
     borderRadius: 5
   },
@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
+    fontSize: 30,
     color: '#000000',
   },
 
   textMesaAtendimento: {
-    fontSize: 20,
+    fontSize: 30,
     color: '#FFF',
   }
 });

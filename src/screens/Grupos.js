@@ -83,12 +83,12 @@ export default class Grupo extends Component {
 const styles = StyleSheet.create({
     item: {
         flex: 1,
-        backgroundColor: '#90a4ae',
+        backgroundColor: '#0080FF',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: 4,
         margin: 1.70,
-        height: 55,
+        height: 85,
         width: 55,
         borderRadius: 5
     },
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent'
     },
     text: {
-        color: '#000000',
+        fontSize: 25,
+        color: '#FFF',
     }
 });
