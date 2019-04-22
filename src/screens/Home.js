@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 4,
     margin: 1.70,
-    height: 75,
+    height: 85,
     width: 55,
     borderRadius: 5
   },

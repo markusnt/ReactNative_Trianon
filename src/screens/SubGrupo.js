@@ -9,45 +9,46 @@ import {
     Dimensions
 } from 'react-native'
 
-export default class Grupo extends Component {
+export default class SubGrupo extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {
             flex: 1
         },
-        title: 'Grupos'
+        title: 'SubGrupos'
     };
 
     constructor() {
         super();
         this.state = {
-            grupos: []
+            subgrupos: []
         }
     }
 
     componentDidMount() {
-        this.getGruposApi();
+        this.getSubGruposApi();
     }
 
-    getGruposApi = async () => {
-        return await fetch('http://192.168.1.179:1337/grupo')
+
+    getSubGruposApi = async () => {
+        const { navigation } = this.props;
+        const cd_grupo = navigation.getParam('cd_grupo', 'NO-ID');
+        return await fetch('http://192.168.1.179:1337/grupoW/'+cd_grupo)
             .then((response) => response.json())
             .then((responseJson) => {
 
                 this.setState({
-                    grupos: responseJson,
+                    subgrupos: responseJson,
                 });
             })
     }
 
-    renderGrupo = ({ item, index }) => {
+    renderSubGrupo = ({ item, index }) => {
         if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('SubGrupo', {
-                cd_grupo: item.cd_grupo
-            })} style={styles.item}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('SubSubGrupo')} style={styles.item}>
                 <View >
-                    <Text style={styles.text}>{item.ds_grupo}</Text>
+                    <Text style={styles.text}>{item.ds_subgrupo}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -56,25 +57,25 @@ export default class Grupo extends Component {
     render() {
         const numColumns = 2
 
-        const formatData = (grupos, numColumns) => {
-            const numberOfFullRows = Math.floor(grupos.length / numColumns);
+        const formatData = (subgrupos, numColumns) => {
+            const numberOfFullRows = Math.floor(subgrupos.length / numColumns);
 
-            let numberOfElementsLastRow = grupos.length - (numberOfFullRows * numColumns);
+            let numberOfElementsLastRow = subgrupos.length - (numberOfFullRows * numColumns);
             while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-                grupos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
+                subgrupos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
                 numberOfElementsLastRow++;
             }
 
-            return grupos;
+            return subgrupos;
         };
 
         return (
             <SafeAreaView>
                 <FlatList
-                    data={formatData(this.state.grupos, numColumns)}
+                    data={formatData(this.state.subgrupos, numColumns)}
                     style={styles.container}
                     keyExtractor={({ id }, index) => 'id' + index}
-                    renderItem={this.renderGrupo}
+                    renderItem={this.renderSubGrupo}
                     numColumns={numColumns}
                 />
             </SafeAreaView>
