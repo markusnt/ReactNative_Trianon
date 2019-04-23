@@ -52,14 +52,14 @@ export default class Home extends Component {
 
   renderMesa = ({ item, index }) => {
     if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
-    if (item.st_mesa === "Atendimentoo") {
+    if (item.st_mesa === "atendimento") {
       return <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={[styles.item, styles.mesaAtendimento]}>
         <View >
           <Text style={styles.textMesaAtendimento}>{item.cd_mesa}</Text>
         </View>
       </TouchableOpacity>
     }
-    if (item.st_mesa === "Pre Conta Solicitada") {
+    if (item.st_mesa === "pre-conta") {
       return <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={[styles.item, styles.mesaPreConta]}>
         <View >
           <Text style={styles.text}>{item.cd_mesa}</Text>

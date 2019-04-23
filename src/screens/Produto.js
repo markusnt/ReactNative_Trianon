@@ -9,46 +9,43 @@ import {
     Dimensions
 } from 'react-native'
 
-export default class SubGrupo extends Component {
+export default class Produto extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {
             flex: 1
         },
-        title: 'SubGrupos'
+        title: 'Produto'
     };
 
     constructor() {
         super();
         this.state = {
-            subgrupos: []
+            produtos: []
         }
     }
 
     componentDidMount() {
-        this.getSubGruposApi();
+        this.getGruposApi();
     }
 
-
-    getSubGruposApi = async () => {
-        const { navigation } = this.props;
-        const cd_grupo = navigation.getParam('cd_grupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/grupoW/'+cd_grupo)
+    getGruposApi = async () => {
+        return await fetch('http://192.168.1.179:1337/produto')
             .then((response) => response.json())
             .then((responseJson) => {
 
                 this.setState({
-                    subgrupos: responseJson,
+                    produtos: responseJson,
                 });
             })
     }
 
-    renderSubGrupo = ({ item, index }) => {
+    renderGrupo = ({ item, index }) => {
         if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Produto')} style={styles.item}>
+            <TouchableOpacity style={styles.item}>
                 <View >
-                    <Text style={styles.text}>{item.ds_subgrupo}</Text>
+                    <Text style={styles.text}>{item.ds_produto}</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -57,25 +54,25 @@ export default class SubGrupo extends Component {
     render() {
         const numColumns = 2
 
-        const formatData = (subgrupos, numColumns) => {
-            const numberOfFullRows = Math.floor(subgrupos.length / numColumns);
+        const formatData = (produtos, numColumns) => {
+            const numberOfFullRows = Math.floor(produtos.length / numColumns);
 
-            let numberOfElementsLastRow = subgrupos.length - (numberOfFullRows * numColumns);
+            let numberOfElementsLastRow = produtos.length - (numberOfFullRows * numColumns);
             while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-                subgrupos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
+                produtos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
                 numberOfElementsLastRow++;
             }
 
-            return subgrupos;
+            return produtos;
         };
 
         return (
             <SafeAreaView>
                 <FlatList
-                    data={formatData(this.state.subgrupos, numColumns)}
+                    data={formatData(this.state.produtos, numColumns)}
                     style={styles.container}
                     keyExtractor={({ id }, index) => 'id' + index}
-                    renderItem={this.renderSubGrupo}
+                    renderItem={this.renderGrupo}
                     numColumns={numColumns}
                 />
             </SafeAreaView>
