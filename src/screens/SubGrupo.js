@@ -46,7 +46,9 @@ export default class SubGrupo extends Component {
     renderSubGrupo = ({ item, index }) => {
         if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
         return (
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Produto')} style={styles.item}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Produto', {
+                cd_subgrupo: item.cd_subgrupo
+            })} style={styles.item}>
                 <View >
                     <Text style={styles.text}>{item.ds_subgrupo}</Text>
                 </View>

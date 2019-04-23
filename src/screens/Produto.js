@@ -15,7 +15,7 @@ export default class Produto extends Component {
         headerTitleStyle: {
             flex: 1
         },
-        title: 'Produto'
+        title: 'Produtos'
     };
 
     constructor() {
@@ -26,11 +26,14 @@ export default class Produto extends Component {
     }
 
     componentDidMount() {
-        this.getGruposApi();
+        this.getProdutosApi();
     }
 
-    getGruposApi = async () => {
-        return await fetch('http://192.168.1.179:1337/produto')
+
+    getProdutosApi = async () => {
+        const { navigation } = this.props;
+        const cd_subgrupo = navigation.getParam('cd_subgrupo', 'NO-ID');
+        return await fetch('http://192.168.1.179:1337/subgrupoW/'+ cd_subgrupo)
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -40,8 +43,7 @@ export default class Produto extends Component {
             })
     }
 
-    renderGrupo = ({ item, index }) => {
-        if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
+    renderProduto = ({ item, index }) => {
         return (
             <TouchableOpacity style={styles.item}>
                 <View >
@@ -52,30 +54,14 @@ export default class Produto extends Component {
     }
 
     render() {
-        const numColumns = 2
-
-        const formatData = (produtos, numColumns) => {
-            const numberOfFullRows = Math.floor(produtos.length / numColumns);
-
-            let numberOfElementsLastRow = produtos.length - (numberOfFullRows * numColumns);
-            while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-                produtos.push({ cd_mesa: `blank-${numberOfElementsLastRow}`, empty: true });
-                numberOfElementsLastRow++;
-            }
-
-            return produtos;
-        };
 
         return (
-            <SafeAreaView>
                 <FlatList
-                    data={formatData(this.state.produtos, numColumns)}
+                    data={this.state.produtos}
                     style={styles.container}
                     keyExtractor={({ id }, index) => 'id' + index}
-                    renderItem={this.renderGrupo}
-                    numColumns={numColumns}
+                    renderItem={this.renderProduto}
                 />
-            </SafeAreaView>
         );
     }
 }
@@ -83,20 +69,9 @@ export default class Produto extends Component {
 const styles = StyleSheet.create({
     item: {
         flex: 1,
-        backgroundColor: '#0080FF',
-        alignItems: 'center',
-        justifyContent: 'center',
         marginTop: 4,
-        margin: 1.70,
-        height: 85,
-        width: 55,
-        borderRadius: 5
-    },
-    itemInvisible: {
-        backgroundColor: 'transparent'
     },
     text: {
         fontSize: 25,
-        color: '#FFF',
     }
 });
