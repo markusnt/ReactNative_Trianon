@@ -1,4 +1,4 @@
 import { StatusBar } from 'react-native'
 
-StatusBar.setBackgroundColor("#eceff1")
-StatusBar.setBarStyle("dark-content")
+StatusBar.setBackgroundColor("#1A2C81")
+StatusBar.setBarStyle("light-content")

@@ -14,10 +14,8 @@ import api from '../services/api'
 export default class Home extends Component {
 
   static navigationOptions = {
-    headerTitleStyle: {
-
-    },
-    title: 'Mesas'
+    title: 'Mesas',
+    headerLeft: null
   };
 
   constructor() {

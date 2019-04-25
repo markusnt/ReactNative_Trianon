@@ -5,12 +5,18 @@ import {
     Text,
     View,
     Button,
-    FlatList, SafeAreaView, TouchableOpacity,
+    FlatList,
+    SafeAreaView,
+    TouchableOpacity,
     Dimensions,
-    TextInput
+    TextInput,
+    ImageBackground,
+    Image
 } from 'react-native'
 
 width = Dimensions.get('window').width
+import bgImage from '../../img/background.jpeg'
+import logo from '../../img/logo.jpeg'
 
 export default class Login extends Component {
 
@@ -28,61 +34,94 @@ export default class Login extends Component {
     }
 
     render() {
-    return (
-        <View style={styles.container}>
+        return (
 
-                <Text style={styles.titulo}> LOGIN </Text>
+            <ImageBackground source={bgImage} style={styles.container}>
 
-                <View style={styles.form}>
+                <Image source={logo} style={styles.logo}></Image>
+                <Text style={styles.titulo}>Trianon</Text>
+
+
+                <View>
 
                     <TextInput style={styles.input}
                         placeholder="Usuario..."
+                        placeholderTextColor={`rgba(255, 255, 255, 0.7)`}
+                        underlineColorAndroid='transparent'
                         onChangeText={texto => this.setState({ usuario: texto })}
                         autoCapitalize="none" />
-
+                </View>
+                <View>
                     <TextInput style={styles.input}
                         placeholder="Senha..."
+                        placeholderTextColor={`rgba(255, 255, 255, 0.7)`}
+                        underlineColorAndroid='transparent'
                         onChangeText={texto => this.setState({ senha: texto })}
                         secureTextEntry={true} />
-
-                    <Button title='ENTRAR' color="#0080FF"
-                         onPress={() => this.props.navigation.navigate('Home')}/>
-
                 </View>
+                {/* <Button title='ENTRAR' color="#0080FF"
+        onPress={() => this.props.navigation.navigate('Home')} /> */}
+
+                <TouchableOpacity style={styles.btnLogin} onPress={() => this.props.navigation.navigate('Home')}>
+                    <Text style={styles.Text}>Login</Text>
+                </TouchableOpacity>
+
+
 
                 <Text style={styles.mensagem}>
                     {this.state.mensagem}
                 </Text>
-            </View>
-    )
-}
+            </ImageBackground >
+        )
+    }
 
 }
 
 const styles = StyleSheet.create({
-container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-},
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 
-titulo: {
-    fontWeight: 'bold',
-    fontSize: 26
-},
+    logo: {
+        width: 100,
+        height: 160,
+        marginTop: -90
+    },
 
-form: {
-    width: width * 0.8
-},
+    titulo: {
+        color: "#B0B0B0",
+        fontSize: 40,
+        marginTop: 50,
+        fontWeight: '500',
+    },
 
-input: {
-    height: 40,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd'
-},
+    input: {
+        width: width - 55,
+        height: 45,
+        borderRadius: 25,
+        fontSize: 16,
+        paddingLeft: 45,
+        backgroundColor: `rgba(0, 0, 0, 0.35)`,
+        color: `rgba(255, 255, 255, 0.7)`,
+        marginHorizontal: 25,
+        marginTop: 10
+    },
 
-mensagem: {
-    marginTop: 15,
-    color: '#e74c3c'
-},
+    btnLogin:{
+        width: width - 55,
+        height: 45,
+        borderRadius: 25,
+        backgroundColor: '#ED3237',
+        justifyContent: 'center',
+        marginTop: 10
+    },
+
+    Text:{
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center'
+    }
+
 })
