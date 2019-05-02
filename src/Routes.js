@@ -6,6 +6,7 @@ import LoginScreen from './screens/Login'
 import SubGrupoScreen from './screens/SubGrupo'
 import ModalScreen from './screens/ModalExample'
 import ProdutoScreen from './screens/Produto'
+import PedidoScreen from './screens/Pedido'
 // Home:{
 //     screen: HomeScreen
 // },
@@ -16,11 +17,11 @@ const AppNavigator = createStackNavigator(
         Grupo: GrupoScreen,
         SubGrupo: SubGrupoScreen,
         Produto: ProdutoScreen,
-        Modal: ModalScreen,
+        Pedido: ModalScreen,
         Login: LoginScreen
     },
     {
-        initialRouteName: 'Login',
+        initialRouteName: 'Home',
         defaultNavigationOptions:{
             headerStyle: {
                 backgroundColor: "#eceff1"

@@ -33,7 +33,7 @@ export default class SubGrupo extends Component {
     getSubGruposApi = async () => {
         const { navigation } = this.props;
         const cd_grupo = navigation.getParam('cd_grupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/grupoW/'+cd_grupo)
+        return await fetch('http://192.168.1.179:1337/subgrupoS/'+cd_grupo)
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -51,6 +51,7 @@ export default class SubGrupo extends Component {
             })} style={styles.item}>
                 <View >
                     <Text style={styles.text}>{item.ds_subgrupo}</Text>
+                    
                 </View>
             </TouchableOpacity>
         )

@@ -16,6 +16,18 @@ export default class Produto extends Component {
         headerTitleStyle: {
             flex: 1
         },
+        headerRight: (
+            <View>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')}>
+                <Icon
+                    name="book"
+                    type='Ionicons'
+                    size={26}
+                    color='#aaa'
+                />
+            </TouchableOpacity>
+            </View>
+        ),
         title: 'Produtos'
     };
 
@@ -34,7 +46,7 @@ export default class Produto extends Component {
     getProdutosApi = async () => {
         const { navigation } = this.props;
         const cd_subgrupo = navigation.getParam('cd_subgrupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/subgrupoW/' + cd_subgrupo)
+        return await fetch('http://192.168.1.179:1337/produtoS/' + cd_subgrupo)
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -47,22 +59,37 @@ export default class Produto extends Component {
     renderProduto = ({ item, index }) => {
         return (
             <View style={styles.item}>
-                <View style={styles.textoProduto}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Pedido')}>
+                <Icon
+                    name="book"
+                    type='Ionicons'
+                    size={26}
+                    color='#aaa'
+                />
+            </TouchableOpacity>
+                <View style={styles.textStyle}>
                     <Text style={styles.text}>{item.ds_produto}</Text>
+                    <View style={styles.priceStyle}>
+                        <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.icone}>
                     <TouchableOpacity>
-                        <Icon style={styles.text}
-                            name='remove-circle'
-                            type='material'
+                        <Icon
+                            name="remove-circle"
+                            type='Ionicons'
+                            size={26}
+                            color='#aaa'
                         />
                     </TouchableOpacity>
                     <Text style={styles.text}> 0 </Text>
                     <TouchableOpacity>
                         <Icon style={styles.text}
                             name='add-circle'
-                            type='material'
+                            type='Ionicons'
+                            size={26}
+                            color='#aaa'
                         />
                     </TouchableOpacity>
                 </View>
@@ -88,8 +115,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
-        borderBottomColor: '#ddd',
-        borderBottomWidth: 1
     },
     textoProduto: {
         flex: 1
@@ -99,6 +124,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        fontSize: 25,
-    }
+        color: '#2e2f30',
+        fontSize: 22,
+    },
+    textPr: {
+        color: '#2e2f30',
+        fontSize: 12,
+    },
+    textStyle: {
+        flex: 2,
+        justifyContent: 'center',
+    },
+    priceStyle: {
+        backgroundColor: '#ddd',
+        width: 40,
+        alignItems: 'center',
+        marginTop: 3,
+        borderRadius: 3
+    },
 });

@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View, Alert} from 'react-native';
+import React, { Component } from 'react';
+import { Modal, Text, TouchableHighlight, View, Alert, StyleSheet } from 'react-native';
 
 export default class ModalExample extends Component {
   state = {
@@ -7,20 +7,20 @@ export default class ModalExample extends Component {
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View style={{ marginTop: 22 }}>
         <Modal
           animationType="slide"
-          transparent={false}
+          transparent={true}
           visible={this.state.modalVisible}
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
-          <View style={{marginTop: 22}}>
+          <View style={styles.container}>
             <View>
               <Text>Hello World!</Text>
 
@@ -44,3 +44,14 @@ export default class ModalExample extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30,
+    width: 200,
+    height: 50,
+    backgroundColor: '#DDD'
+  },
+})
