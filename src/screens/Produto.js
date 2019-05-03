@@ -63,7 +63,7 @@ export default class Produto extends Component {
                         <Icon
                             name="remove-circle"
                             type='Ionicons'
-                            size={26}
+                            size={30}
                             color='#aaa'
                         />
                     </TouchableOpacity>
@@ -72,7 +72,7 @@ export default class Produto extends Component {
                         <Icon style={styles.text}
                             name='add-circle'
                             type='Ionicons'
-                            size={26}
+                            size={30}
                             color='#aaa'
                         />
                     </TouchableOpacity>
@@ -96,13 +96,13 @@ export default class Produto extends Component {
                 />
 
                 <ActionButton
-                    position="right"
+                    position="center"
                     verticalOrientation="up"
                     buttonColor="#ED3237"
                     onPress={() => this.props.navigation.navigate('Pedido', {
                         nr_mesa: nr_mesa
                     })}
-                />
+                /> 
             </View>
         );
     }
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     },
     textPr: {
         color: '#2e2f30',
-        fontSize: 12,
+        fontSize: 18,
     },
     textStyle: {
         flex: 2,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     },
     priceStyle: {
         backgroundColor: '#ddd',
-        width: 40,
+        width: 88,
         alignItems: 'center',
         marginTop: 3,
         borderRadius: 3
