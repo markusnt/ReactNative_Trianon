@@ -23,6 +23,8 @@ export default class Grupo extends Component {
         this.state = {
             grupos: []
         }
+
+       
     }
 
     componentDidMount() {
@@ -41,10 +43,13 @@ export default class Grupo extends Component {
     }
 
     renderGrupo = ({ item, index }) => {
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('SubGrupo', {
-                cd_grupo: item.cd_grupo
+                cd_grupo: item.cd_grupo,
+                nr_mesa: nr_mesa
             })} style={styles.item}>
                 <View >
                     <Text style={styles.text}>{item.ds_grupo}</Text>

@@ -17,16 +17,16 @@ const AppNavigator = createStackNavigator(
         Grupo: GrupoScreen,
         SubGrupo: SubGrupoScreen,
         Produto: ProdutoScreen,
-        Pedido: ModalScreen,
+        Pedido: PedidoScreen,
         Login: LoginScreen
     },
     {
         initialRouteName: 'Home',
         defaultNavigationOptions:{
             headerStyle: {
-                backgroundColor: "#eceff1"
+                backgroundColor: "#25CBCB"
             },
-        headerTintColor: '#000000'
+        headerTintColor: '#FFF'
         }
 })
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Icon } from 'react-native-elements'
+import ActionButton from 'react-native-action-button';
+
 import {
     Platform,
     StyleSheet,
@@ -16,18 +18,6 @@ export default class Produto extends Component {
         headerTitleStyle: {
             flex: 1
         },
-        headerRight: (
-            <View>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')}>
-                <Icon
-                    name="book"
-                    type='Ionicons'
-                    size={26}
-                    color='#aaa'
-                />
-            </TouchableOpacity>
-            </View>
-        ),
         title: 'Produtos'
     };
 
@@ -39,6 +29,7 @@ export default class Produto extends Component {
     }
 
     componentDidMount() {
+
         this.getProdutosApi();
     }
 
@@ -57,16 +48,9 @@ export default class Produto extends Component {
     }
 
     renderProduto = ({ item, index }) => {
+
         return (
             <View style={styles.item}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Pedido')}>
-                <Icon
-                    name="book"
-                    type='Ionicons'
-                    size={26}
-                    color='#aaa'
-                />
-            </TouchableOpacity>
                 <View style={styles.textStyle}>
                     <Text style={styles.text}>{item.ds_produto}</Text>
                     <View style={styles.priceStyle}>
@@ -93,24 +77,41 @@ export default class Produto extends Component {
                         />
                     </TouchableOpacity>
                 </View>
+
+
             </View>
         )
     }
 
     render() {
-
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         return (
-            <FlatList
-                data={this.state.produtos}
-                style={styles.container}
-                keyExtractor={({ id }, index) => 'id' + index}
-                renderItem={this.renderProduto}
-            />
+            <View style={styles.container}>
+                <FlatList
+                    data={this.state.produtos}
+                    style={styles.container}
+                    keyExtractor={({ id }, index) => 'id' + index}
+                    renderItem={this.renderProduto}
+                />
+
+                <ActionButton
+                    position="right"
+                    verticalOrientation="up"
+                    buttonColor="#ED3237"
+                    onPress={() => this.props.navigation.navigate('Pedido', {
+                        nr_mesa: nr_mesa
+                    })}
+                />
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     item: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -142,4 +143,7 @@ const styles = StyleSheet.create({
         marginTop: 3,
         borderRadius: 3
     },
+    fab: {
+        marginBottom: 50
+    }
 });

@@ -15,7 +15,8 @@ export default class Home extends Component {
 
   static navigationOptions = {
     title: 'Mesas',
-    headerLeft: null
+    headerLeft: null,
+    color: "#25CBCB"
   };
 
   constructor() {
@@ -65,7 +66,9 @@ export default class Home extends Component {
       </TouchableOpacity>
     }
     return (
-      <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo')} style={styles.item}>
+      <TouchableOpacity onPress={() => this.props.navigation.navigate('Grupo', {
+        nr_mesa: item.nr_mesa
+      })} style={styles.item}>
         <View >
           <Text style={styles.text}>{item.cd_mesa}</Text>
         </View>

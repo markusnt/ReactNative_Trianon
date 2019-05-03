@@ -33,6 +33,7 @@ export default class SubGrupo extends Component {
     getSubGruposApi = async () => {
         const { navigation } = this.props;
         const cd_grupo = navigation.getParam('cd_grupo', 'NO-ID');
+        
         return await fetch('http://192.168.1.179:1337/subgrupoS/'+cd_grupo)
             .then((response) => response.json())
             .then((responseJson) => {
@@ -44,10 +45,13 @@ export default class SubGrupo extends Component {
     }
 
     renderSubGrupo = ({ item, index }) => {
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         if (item.empty === true) { return <View style={[styles.item, styles.itemInvisible]} /> }
         return (
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Produto', {
-                cd_subgrupo: item.cd_subgrupo
+                cd_subgrupo: item.cd_subgrupo,
+                nr_mesa: nr_mesa
             })} style={styles.item}>
                 <View >
                     <Text style={styles.text}>{item.ds_subgrupo}</Text>
