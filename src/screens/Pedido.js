@@ -25,6 +25,16 @@ export default class Pedido extends Component {
         }
     }
 
+    alteracaoEstadoMesa() {
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
+        this.props.navigation.navigate('Home')
+        return fetch('http://192.168.1.179:1337/mesaAtendimento/'+nr_mesa,{
+            method: 'PUT'
+        })
+        
+    }
+
     render() {
         const { navigation } = this.props;
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
@@ -39,7 +49,7 @@ export default class Pedido extends Component {
                 <Text> SEILAOQESCREVOAKI 10%: R$ 1.00 </Text>
                 <Text> Total: R$ 11.00</Text>
 
-                <TouchableOpacity style={styles.btnLogin}>
+                <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
                     <Text style={styles.Text}>Enviar Pedido</Text>
                 </TouchableOpacity>
             </View>

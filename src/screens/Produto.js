@@ -102,7 +102,7 @@ export default class Produto extends Component {
                     onPress={() => this.props.navigation.navigate('Pedido', {
                         nr_mesa: nr_mesa
                     })}
-                /> 
+                > manuuurr</ActionButton> 
             </View>
         );
     }
