@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
+import { connect } from 'react-redux'
 
 import {
     Platform,
@@ -12,7 +13,7 @@ import {
     Dimensions,
 } from 'react-native'
 
-export default class Produto extends Component {
+class Produto extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {
@@ -61,14 +62,14 @@ export default class Produto extends Component {
                 <View style={styles.icone}>
                     <TouchableOpacity>
                         <Icon
-                            name="md-add-circle"
+                            name="md-remove-circle"
                             type='Ionicons'
                             size={30}
                             color='#aaa'
                         />
                     </TouchableOpacity>
                     <Text style={styles.text}> 0 </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={this.props.addItemToCart}>
                         <Icon
                             name='md-add-circle'
                             type='Ionicons'
@@ -94,11 +95,19 @@ export default class Produto extends Component {
                     renderItem={this.renderProduto}
                 />
 
-                
+
             </View>
         );
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addItemToCart: (produt) => dispatch({ type: 'ADD_TO_CART', payload: produt })
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Produto);
 
 const styles = StyleSheet.create({
     container: {

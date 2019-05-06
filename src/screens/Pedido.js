@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    StyleSheet, TouchableOpacity, Dimensions
+    StyleSheet, TouchableOpacity, Dimensions, FlatList
 } from "react-native";
 
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import { Button } from "react-native-elements";
 
 width = Dimensions.get('window').width
 
-export default class Pedido extends Component {
+class Pedido extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {
@@ -37,6 +37,42 @@ export default class Pedido extends Component {
 
     }
 
+    renderProduto = ({ item, index }) => {
+
+        return (
+            <View style={styles.item}>
+                <View style={styles.textStyle}>
+                    <Text style={styles.text}>{item.ds_produto}</Text>
+                    <View style={styles.priceStyle}>
+                        <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
+                    </View>
+                </View>
+
+                <View style={styles.icone}>
+                    <TouchableOpacity>
+                        <Icon
+                            name="md-remove-circle"
+                            type='Ionicons'
+                            size={30}
+                            color='#aaa'
+                        />
+                    </TouchableOpacity>
+                    <Text style={styles.text}> 0 </Text>
+                    <TouchableOpacity>
+                        <Icon
+                            name='md-add-circle'
+                            type='Ionicons'
+                            size={30}
+                            color='#aaa'
+                        />
+                    </TouchableOpacity>
+                </View>
+
+
+            </View>
+        )
+    }
+
     render() {
         const { navigation } = this.props;
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
@@ -48,7 +84,8 @@ export default class Pedido extends Component {
                 </View>
 
                 <View style={styles.lista_pedido}>
-                    <Text style={{fontSize: 18}}> 1x X-TUDO </Text>
+                    <FlatList 
+                    renderItem = {this.props.cartItems.product} />
                     <Text style={{fontSize: 18}}> R$ 10.00 </Text>
                 </View>
 
@@ -56,13 +93,30 @@ export default class Pedido extends Component {
                     <Text style={{fontSize: 18}}> Total: R$ 10.00</Text>
                 </View>
 
+                <Text> Itens a serem pedidos: {this.props.cartItems.length} </Text>
                 <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
-                    <Text style={styles.Text}>Enviar Pedido</Text>
+                    <Text style={styles.Text}>Enviar Pedido </Text>
                 </TouchableOpacity>
+
             </View>
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        cartItems: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        removeItem: (product) => dispatch({ type: 'REMOVE_FROM_CART', payload: product })
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Pedido);
 
 const styles = StyleSheet.create({
     container: {
