@@ -88,12 +88,12 @@ export default class Grupo extends Component {
                 />
 
                 <ActionButton buttonColor="#ED3237">
-                    <ActionButton.Item buttonColor='#9b59b6' title="Pedidos" onPress={() => this.props.navigation.navigate('Pedido', {
+                    <ActionButton.Item buttonColor='#25CBCB' title="Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
                         nr_mesa: nr_mesa
                     })}>
                         <Icon name="md-create" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#3498db' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
+                    <ActionButton.Item buttonColor='#25CBCB' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
                         nr_mesa: nr_mesa
                     })}>
                         <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#0080FF',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 4,
+        marginTop: 2,
         margin: 1.70,
         height: 85,
         width: 55,
