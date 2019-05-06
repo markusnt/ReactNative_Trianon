@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import {
     View,
     Text,
-    StyleSheet, TouchableOpacity
+    StyleSheet, TouchableOpacity, Dimensions
 } from "react-native";
+
 import { connect } from 'react-redux'
 import { Button } from "react-native-elements";
 
+width = Dimensions.get('window').width
 
 export default class Pedido extends Component {
 
@@ -29,10 +31,10 @@ export default class Pedido extends Component {
         const { navigation } = this.props;
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         this.props.navigation.navigate('Home')
-        return fetch('http://192.168.1.179:1337/mesaAtendimento/'+nr_mesa,{
+        return fetch('http://192.168.1.179:1337/mesaAtendimento/' + nr_mesa, {
             method: 'PUT'
         })
-        
+
     }
 
     render() {
@@ -40,14 +42,29 @@ export default class Pedido extends Component {
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
 
         return (
-            <View>
-                <Text> Pedido Mesa {nr_mesa} </Text>
-                <Text> 1x X-TUDO </Text>
-                <Text> R$ 10.00 </Text>
+            <View style={styles.container}>
+                <View style={styles.titulo_mesa}>
+                    <Text style={{fontSize: 30}}> Mesa {nr_mesa} </Text>
+                </View>
 
-                <Text> SubTotal: R$ 10.00 </Text>
-                <Text> SEILAOQESCREVOAKI 10%: R$ 1.00 </Text>
-                <Text> Total: R$ 11.00</Text>
+                <View style={styles.lista_pedido}>
+                    <Text style={{fontSize: 18}}> 1x X-TUDO </Text>
+                    <Text style={{fontSize: 18}}> R$ 10.00 </Text>
+                </View>
+
+                <View style={styles.subtotal_pedido}>
+                    <Text style={{fontSize: 18}}> SubTotal: </Text>
+                    <Text style={{fontSize: 18}}> R$ 10.00 </Text>
+                </View>
+
+                <View style={styles.extra}>
+                    <Text style={{fontSize: 18}}> SEI LA TARIFAS EXTRAS ? 10%: </Text>
+                    <Text style={{fontSize: 18}}> R$ 1.00 </Text>
+                </View>
+
+                <View style={styles.total_pedido}>
+                    <Text style={{fontSize: 18}}> Total: R$ 11.00</Text>
+                </View>
 
                 <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
                     <Text style={styles.Text}>Enviar Pedido</Text>
@@ -60,15 +77,52 @@ export default class Pedido extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
+
+    titulo_mesa:{
+        flexDirection: 'row',
+        justifyContent: 'center',
+        fontSize: 30,
+    },
+
+    lista_pedido:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+
+    subtotal_pedido:{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        fontSize: 18,
+        marginTop: 10,
+    },
+
+    extra:{
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        borderBottomColor: '#ddd',
+        borderBottomWidth: 1,
+        fontSize: 18,
+    },
+
+    total_pedido: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        fontSize: 20,
+        marginTop: 10,
+    },
+
     btnLogin: {
-        width: width - 55,
+        flexDirection: 'row',
+        width: width,
         height: 45,
-        borderRadius: 25,
         backgroundColor: '#17EE42',
         justifyContent: 'center',
-        marginTop: 10
+        marginTop: 15
     },
+
+    Text:{
+        fontSize: 30,
+    }
 });
