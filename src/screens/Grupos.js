@@ -93,7 +93,9 @@ export default class Grupo extends Component {
                     })}>
                         <Icon name="md-create" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#3498db' title="Solicitar Pre-Conta" onPress={() => { }}>
+                    <ActionButton.Item buttonColor='#3498db' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
+                        nr_mesa: nr_mesa
+                    })}>
                         <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                 </ActionButton>

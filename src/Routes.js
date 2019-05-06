@@ -7,6 +7,7 @@ import SubGrupoScreen from './screens/SubGrupo'
 import ModalScreen from './screens/ModalExample'
 import ProdutoScreen from './screens/Produto'
 import PedidoScreen from './screens/Pedido'
+import PreContaScreen from './screens/Pre_conta'
 // Home:{
 //     screen: HomeScreen
 // },
@@ -18,6 +19,7 @@ const AppNavigator = createStackNavigator(
         SubGrupo: SubGrupoScreen,
         Produto: ProdutoScreen,
         Pedido: PedidoScreen,
+        PreConta: PreContaScreen,
         Login: LoginScreen
     },
     {

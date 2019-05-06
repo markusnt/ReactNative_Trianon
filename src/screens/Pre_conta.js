@@ -17,7 +17,7 @@ export default class Pedido extends Component {
             flex: 1
         },
 
-        title: 'Pedido'
+        title: 'Pre Conta'
     };
 
     constructor() {
@@ -31,7 +31,7 @@ export default class Pedido extends Component {
         const { navigation } = this.props;
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         this.props.navigation.navigate('Home')
-        return fetch('http://192.168.1.179:1337/mesaAtendimento/' + nr_mesa, {
+        return fetch('http://192.168.1.179:1337/mesaPreConta/' + nr_mesa, {
             method: 'PUT'
         })
 
@@ -52,12 +52,22 @@ export default class Pedido extends Component {
                     <Text style={{fontSize: 18}}> R$ 10.00 </Text>
                 </View>
 
+                <View style={styles.subtotal_pedido}>
+                    <Text style={{fontSize: 18}}> SubTotal: </Text>
+                    <Text style={{fontSize: 18}}> R$ 10.00 </Text>
+                </View>
+
+                <View style={styles.extra}>
+                    <Text style={{fontSize: 18}}> SEI LA TARIFAS EXTRAS ? 10%: </Text>
+                    <Text style={{fontSize: 18}}> R$ 1.00 </Text>
+                </View>
+
                 <View style={styles.total_pedido}>
-                    <Text style={{fontSize: 18}}> Total: R$ 10.00</Text>
+                    <Text style={{fontSize: 18}}> Total: R$ 11.00</Text>
                 </View>
 
                 <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
-                    <Text style={styles.Text}>Enviar Pedido</Text>
+                    <Text style={styles.Text}>Solicitar Pre Conta</Text>
                 </TouchableOpacity>
             </View>
         );

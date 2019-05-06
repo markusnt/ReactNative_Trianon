@@ -90,7 +90,6 @@ export default class Produto extends Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.state.produtos}
-                    style={styles.container}
                     keyExtractor={({ id }, index) => 'id' + index}
                     renderItem={this.renderProduto}
                 />
