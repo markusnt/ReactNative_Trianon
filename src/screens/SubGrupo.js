@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/Ionicons';
+import ActionButton from 'react-native-action-button';
 import {
     Platform,
     StyleSheet,
@@ -33,8 +35,8 @@ export default class SubGrupo extends Component {
     getSubGruposApi = async () => {
         const { navigation } = this.props;
         const cd_grupo = navigation.getParam('cd_grupo', 'NO-ID');
-        
-        return await fetch('http://192.168.1.179:1337/subgrupoS/'+cd_grupo)
+
+        return await fetch('http://192.168.1.179:1337/subgrupoS/' + cd_grupo)
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -55,13 +57,15 @@ export default class SubGrupo extends Component {
             })} style={styles.item}>
                 <View >
                     <Text style={styles.text}>{item.ds_subgrupo}</Text>
-                    
+
                 </View>
             </TouchableOpacity>
         )
     }
 
     render() {
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         const numColumns = 2
 
         const formatData = (subgrupos, numColumns) => {
@@ -77,7 +81,8 @@ export default class SubGrupo extends Component {
         };
 
         return (
-            <SafeAreaView>
+            <View style={styles.container}>
+
                 <FlatList
                     data={formatData(this.state.subgrupos, numColumns)}
                     style={styles.container}
@@ -85,12 +90,26 @@ export default class SubGrupo extends Component {
                     renderItem={this.renderSubGrupo}
                     numColumns={numColumns}
                 />
-            </SafeAreaView>
+
+                <ActionButton buttonColor="#ED3237">
+                    <ActionButton.Item buttonColor='#9b59b6' title="Pedidos" onPress={() => this.props.navigation.navigate('Pedido', {
+                        nr_mesa: nr_mesa
+                    })}>
+                        <Icon name="md-create" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#3498db' title="Solicitar Pre-Conta" onPress={() => { }}>
+                        <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                </ActionButton>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     item: {
         flex: 1,
         backgroundColor: '#0080FF',
@@ -108,5 +127,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: '#FFF',
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
 });

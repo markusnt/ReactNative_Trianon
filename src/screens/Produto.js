@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Icon } from 'react-native-elements'
+import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
 
 import {
@@ -61,7 +61,7 @@ export default class Produto extends Component {
                 <View style={styles.icone}>
                     <TouchableOpacity>
                         <Icon
-                            name="remove-circle"
+                            name="md-add-circle"
                             type='Ionicons'
                             size={30}
                             color='#aaa'
@@ -69,8 +69,8 @@ export default class Produto extends Component {
                     </TouchableOpacity>
                     <Text style={styles.text}> 0 </Text>
                     <TouchableOpacity>
-                        <Icon style={styles.text}
-                            name='add-circle'
+                        <Icon
+                            name='md-add-circle'
                             type='Ionicons'
                             size={30}
                             color='#aaa'
@@ -95,14 +95,7 @@ export default class Produto extends Component {
                     renderItem={this.renderProduto}
                 />
 
-                <ActionButton
-                    position="center"
-                    verticalOrientation="up"
-                    buttonColor="#ED3237"
-                    onPress={() => this.props.navigation.navigate('Pedido', {
-                        nr_mesa: nr_mesa
-                    })}
-                > manuuurr</ActionButton> 
+                
             </View>
         );
     }
@@ -142,6 +135,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 3,
         borderRadius: 3
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     },
     fab: {
         marginBottom: 50

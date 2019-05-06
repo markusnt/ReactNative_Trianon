@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import Icon from 'react-native-vector-icons/Ionicons';
+import ActionButton from 'react-native-action-button';
 import {
     Platform,
     StyleSheet,
@@ -24,7 +26,7 @@ export default class Grupo extends Component {
             grupos: []
         }
 
-       
+
     }
 
     componentDidMount() {
@@ -59,6 +61,8 @@ export default class Grupo extends Component {
     }
 
     render() {
+        const { navigation } = this.props;
+        const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         const numColumns = 2
 
         const formatData = (grupos, numColumns) => {
@@ -74,7 +78,7 @@ export default class Grupo extends Component {
         };
 
         return (
-            <SafeAreaView>
+            <View style={styles.container}>
                 <FlatList
                     data={formatData(this.state.grupos, numColumns)}
                     style={styles.container}
@@ -82,12 +86,26 @@ export default class Grupo extends Component {
                     renderItem={this.renderGrupo}
                     numColumns={numColumns}
                 />
-            </SafeAreaView>
+
+                <ActionButton buttonColor="#ED3237">
+                    <ActionButton.Item buttonColor='#9b59b6' title="Pedidos" onPress={() => this.props.navigation.navigate('Pedido', {
+                        nr_mesa: nr_mesa
+                    })}>
+                        <Icon name="md-create" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#3498db' title="Solicitar Pre-Conta" onPress={() => { }}>
+                        <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                </ActionButton>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
     item: {
         flex: 1,
         backgroundColor: '#0080FF',
@@ -105,5 +123,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: '#FFF',
-    }
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
+    },
 });
