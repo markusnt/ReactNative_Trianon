@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
+import FabIcon from '../components/FabIcon';
+
 import {
     Platform,
     StyleSheet,
@@ -92,7 +94,7 @@ export default class SubGrupo extends Component {
                 />
 
                 <ActionButton buttonColor="#ED3237">
-                    <ActionButton.Item buttonColor='#25CBCB' title="Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
+                    <ActionButton.Item buttonColor='#25CBCB' title="Enviar Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
                         nr_mesa: nr_mesa
                     })}>
                         <Icon name="md-create" style={styles.actionButtonIcon} />
@@ -103,6 +105,7 @@ export default class SubGrupo extends Component {
                         <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
                 </ActionButton>
+
             </View>
         );
     }
@@ -130,9 +133,5 @@ const styles = StyleSheet.create({
         fontSize: 25,
         color: '#FFF',
     },
-    actionButtonIcon: {
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-    },
+
 });

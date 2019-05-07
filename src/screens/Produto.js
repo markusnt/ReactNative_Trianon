@@ -64,7 +64,7 @@ class Produto extends Component {
                         <Icon
                             name="md-remove-circle"
                             type='Ionicons'
-                            size={30}
+                            size={45}
                             color='#aaa'
                         />
                     </TouchableOpacity>
@@ -73,7 +73,7 @@ class Produto extends Component {
                         <Icon
                             name='md-add-circle'
                             type='Ionicons'
-                            size={30}
+                            size={45}
                             color='#aaa'
                         />
                     </TouchableOpacity>

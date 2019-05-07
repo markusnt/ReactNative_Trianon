@@ -87,6 +87,8 @@ class Pedido extends Component {
                     <FlatList 
                     renderItem = {this.props.cartItems.product} />
                     <Text style={{fontSize: 18}}> R$ 10.00 </Text>
+                    {this.props.cartItems.product}
+                    {this.props.cartItems.cartItem}
                 </View>
 
                 <View style={styles.total_pedido}>
