@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     item: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 10,
+        marginBottom: 15,
     },
     textoProduto: {
         flex: 1
@@ -126,7 +126,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     textStyle: {
-        width: width - 55,
+        flex: 1,
+        marginLeft: 20,
+        marginRight: 20,
         height: 45,
         borderRadius: 10,
         fontSize: 16,
@@ -148,8 +150,5 @@ const styles = StyleSheet.create({
         fontSize: 20,
         height: 22,
         color: 'white',
-    },
-    fab: {
-        marginBottom: 50
     },
 });
