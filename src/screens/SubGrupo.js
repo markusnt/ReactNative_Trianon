@@ -94,12 +94,12 @@ export default class SubGrupo extends Component {
                 />
 
                 <ActionButton buttonColor="#ED3237">
-                    <ActionButton.Item buttonColor='#25CBCB' title="Enviar Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
+                    <ActionButton.Item buttonColor='#0d5151' title="Enviar Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
                         nr_mesa: nr_mesa
                     })}>
                         <Icon name="md-create" style={styles.actionButtonIcon} />
                     </ActionButton.Item>
-                    <ActionButton.Item buttonColor='#25CBCB' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
+                    <ActionButton.Item buttonColor='#0d5151' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
                         nr_mesa: nr_mesa
                     })}>
                         <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
@@ -132,6 +132,11 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         color: '#FFF',
+    },
+    actionButtonIcon: {
+        fontSize: 20,
+        height: 22,
+        color: 'white',
     },
 
 });

@@ -13,6 +13,7 @@ import {
     Dimensions,
 } from 'react-native'
 
+width = Dimensions.get('window').width
 class Produto extends Component {
 
     static navigationOptions = {
@@ -38,7 +39,7 @@ class Produto extends Component {
     getProdutosApi = async () => {
         const { navigation } = this.props;
         const cd_subgrupo = navigation.getParam('cd_subgrupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/produtoS/' + cd_subgrupo)
+        return await fetch('http://192.168.1.179:1337/produtoS/' + cd_subgrupo) //cd_subgrupo
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -52,34 +53,12 @@ class Produto extends Component {
 
         return (
             <View style={styles.item}>
-                <View style={styles.textStyle}>
+                <TouchableOpacity style={styles.textStyle} onPress={this.props.addItemToCart}>
                     <Text style={styles.text}>{item.ds_produto}</Text>
                     <View style={styles.priceStyle}>
                         <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
                     </View>
-                </View>
-
-                <View style={styles.icone}>
-                    <TouchableOpacity>
-                        <Icon
-                            name="md-remove-circle"
-                            type='Ionicons'
-                            size={45}
-                            color='#aaa'
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.text}> 0 </Text>
-                    <TouchableOpacity onPress={this.props.addItemToCart}>
-                        <Icon
-                            name='md-add-circle'
-                            type='Ionicons'
-                            size={45}
-                            color='#aaa'
-                        />
-                    </TouchableOpacity>
-                </View>
-
-
+                </TouchableOpacity>
             </View>
         )
     }
@@ -90,11 +69,24 @@ class Produto extends Component {
         return (
             <View style={styles.container}>
                 <FlatList
+                    style={styles.itemList}
                     data={this.state.produtos}
                     keyExtractor={({ id }, index) => 'id' + index}
                     renderItem={this.renderProduto}
                 />
 
+                <ActionButton buttonColor="#ED3237">
+                    <ActionButton.Item buttonColor='#0d5151' title="Enviar Pedido" onPress={() => this.props.navigation.navigate('Pedido', {
+                        nr_mesa: nr_mesa
+                    })}>
+                        <Icon name="md-create" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                    <ActionButton.Item buttonColor='#0d5151' title="Solicitar Pre-Conta" onPress={() => this.props.navigation.navigate('PreConta', {
+                        nr_mesa: nr_mesa
+                    })}>
+                        <Icon name="md-bookmarks" style={styles.actionButtonIcon} />
+                    </ActionButton.Item>
+                </ActionButton>
 
             </View>
         );
@@ -126,20 +118,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        color: '#2e2f30',
-        fontSize: 22,
+        color: '#fff',
+        fontSize: 20,
     },
     textPr: {
         color: '#2e2f30',
-        fontSize: 18,
+        fontSize: 16,
     },
     textStyle: {
-        flex: 2,
-        justifyContent: 'center',
+        width: width - 55,
+        height: 45,
+        borderRadius: 10,
+        fontSize: 16,
+        paddingLeft: 45,
+        backgroundColor: `#1fa3a3`,
+        color: `#000`,
+        marginHorizontal: 25,
+        marginTop: 10
     },
     priceStyle: {
         backgroundColor: '#ddd',
         width: 88,
+        borderRadius: 10,
         alignItems: 'center',
         marginTop: 3,
         borderRadius: 3
@@ -151,5 +151,5 @@ const styles = StyleSheet.create({
     },
     fab: {
         marginBottom: 50
-    }
+    },
 });
