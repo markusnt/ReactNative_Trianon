@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types";
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
 import { connect } from 'react-redux'
@@ -10,7 +11,7 @@ import {
     View,
     Button,
     FlatList, SafeAreaView, TouchableOpacity,
-    Dimensions,
+    Dimensions, TouchableHighlight, Picker
 } from 'react-native'
 
 width = Dimensions.get('window').width
@@ -23,11 +24,14 @@ class Produto extends Component {
         title: 'Produtos'
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            produtos: []
-        }
+            produtos: [],
+            value: this.props.productQuantity,
+            count: 0
+        };
+        this.increment = this.increment.bind(this);
     }
 
     componentDidMount() {
@@ -39,7 +43,7 @@ class Produto extends Component {
     getProdutosApi = async () => {
         const { navigation } = this.props;
         const cd_subgrupo = navigation.getParam('cd_subgrupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/produtoS/' + cd_subgrupo) //cd_subgrupo
+        return await fetch('http://192.168.1.179:1337/produtoS/27') //cd_subgrupo
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -49,15 +53,55 @@ class Produto extends Component {
             })
     }
 
+    increment(e) {
+        this.setState(
+            prevState => ({
+                value: Number(prevState.value) + 1
+            }),
+            function () {
+                this.props.updateQuantity(this.state.value);
+            }
+        );
+        e.preventDefault();
+    }
+
+    feed(e) {
+        this.setState(
+            {
+                value: this.refs.feedQty.value
+            },
+            function () {
+                this.props.updateQuantity(this.state.value);
+            }
+        );
+    }
+
+    so_vai = () => {
+        this.setState({
+            count: this.state.count + 1
+        })
+    }
+
     renderProduto = ({ item, index }) => {
 
         return (
             <View style={styles.item}>
                 <TouchableOpacity style={styles.textStyle} onPress={this.props.addItemToCart}>
                     <Text style={styles.text}>{item.ds_produto}</Text>
-                    <View style={styles.priceStyle}>
-                        <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
+
+                    <View style={styles.sideProd} >
+                        <View style={styles.priceStyle}>
+                            <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
+                        </View>
+                        <View style={styles.itemCount}>
+                            <Text style={styles.textPr} > {this.state.count} </Text>
+                        </View>
+                        <TouchableOpacity style={styles.DeleteItem}>
+                            <Icon name="md-trash"
+                                size={20} />
+                        </TouchableOpacity>
                     </View>
+
                 </TouchableOpacity>
             </View>
         )
@@ -93,6 +137,9 @@ class Produto extends Component {
     }
 }
 
+Produto.propTypes = {
+    value: PropTypes.number
+};
 const mapDispatchToProps = (dispatch) => {
     return {
         addItemToCart: (produt) => dispatch({ type: 'ADD_TO_CART', payload: produt })
@@ -139,12 +186,31 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     priceStyle: {
-        backgroundColor: '#ddd',
+        backgroundColor: '#eee',
         width: 88,
         borderRadius: 10,
         alignItems: 'center',
         marginTop: 3,
         borderRadius: 3
+    },
+    itemCount: {
+        backgroundColor: '#eee',
+        marginLeft: 10,
+        width: 50,
+        alignItems: 'center',
+        marginTop: 3,
+        borderRadius: 3
+    },
+    DeleteItem: {
+        backgroundColor: '#fc7474',
+        marginLeft: 10,
+        width: 50,
+        alignItems: 'center',
+        marginTop: 3,
+        borderRadius: 3
+    },
+    sideProd: {
+        flexDirection: 'row'
     },
     actionButtonIcon: {
         fontSize: 20,
@@ -152,3 +218,4 @@ const styles = StyleSheet.create({
         color: 'white',
     },
 });
+

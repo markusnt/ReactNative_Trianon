@@ -52,6 +52,6 @@ const styles = StyleSheet.create({
     marginTop: 30,
     width: 200,
     height: 50,
-    backgroundColor: '#DDD'
+    backgroundColor: '#eee'
   },
 })

@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     extra:{
         flexDirection: 'row',
         justifyContent: 'flex-end',
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#eee',
         borderBottomWidth: 1,
         fontSize: 18,
     },
