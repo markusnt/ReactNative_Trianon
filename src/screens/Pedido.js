@@ -7,7 +7,7 @@ import {
 
 import { connect } from 'react-redux'
 import { Button } from "react-native-elements";
-
+import cartItems from '../reducers/cartItems'
 width = Dimensions.get('window').width
 
 class Pedido extends Component {
@@ -40,36 +40,20 @@ class Pedido extends Component {
     renderProduto = ({ item, index }) => {
 
         return (
-            <View style={styles.item}>
-                <View style={styles.textStyle}>
-                    <Text style={styles.text}>{item.ds_produto}</Text>
-                    <View style={styles.priceStyle}>
-                        <Text style={styles.textPr}>R${item.pr_produto.toFixed(2)}</Text>
-                    </View>
-                </View>
+            <View style={styles.lista_pedido}>
 
-                <View style={styles.icone}>
-                    <TouchableOpacity>
-                        <Icon
-                            name="md-remove-circle"
-                            type='Ionicons'
-                            size={30}
-                            color='#aaa'
-                        />
-                    </TouchableOpacity>
-                    <Text style={styles.text}> 0 </Text>
-                    <TouchableOpacity>
-                        <Icon
-                            name='md-add-circle'
-                            type='Ionicons'
-                            size={30}
-                            color='#aaa'
-                        />
-                    </TouchableOpacity>
-                </View>
-
+                <Text style={{ fontSize: 18 }}> {this.props.cartItems.item} </Text>
+                <Text style={{ fontSize: 18 }}> {this.props.cartItems.length} </Text>
+                <Text style={{ fontSize: 18 }}> {item.ds_produto} </Text>
+                <Text style={{ fontSize: 18 }}> {this.props.products} </Text>
+                <Text style={{ fontSize: 18 }}> {cartItems.ds_produto} </Text>
+                <Text style={{ fontSize: 18 }}> {item.products} </Text>
+                <Text style={{ fontSize: 18 }}> {item.length} </Text>
+                <Text style={{ fontSize: 18 }}> R$ 10.00 </Text>
 
             </View>
+
+
         )
     }
 
@@ -79,27 +63,36 @@ class Pedido extends Component {
 
         return (
             <View style={styles.container}>
-                <View style={styles.titulo_mesa}>
-                    <Text style={{fontSize: 30}}> Mesa {nr_mesa} </Text>
-                </View>
+                {this.props.cartItems.length > 0 ?
+                    <View>
+                        <View style={styles.titulo_mesa}>
+                            <Text style={{ fontSize: 30 }}> Mesa {nr_mesa} </Text>
+                        </View>
 
-                <View style={styles.lista_pedido}>
-                    <FlatList 
-                    renderItem = {this.props.cartItems.product} />
-                    <Text style={{fontSize: 18}}> R$ 10.00 </Text>
-                    {this.props.cartItems.product}
-                    {this.props.cartItems.cartItem}
-                </View>
 
-                <View style={styles.total_pedido}>
-                    <Text style={{fontSize: 18}}> Total: R$ 10.00</Text>
-                </View>
+                        <FlatList
+                            style={styles.itemList}
+                            data={this.props.cartItems}
+                            keyExtractor={({ id }, index) => 'id' + index}
+                            renderItem={this.renderProduto}
+                        />
+                        {/* <FlatList 
+                    renderItem = {this.props.cartItems} /> */}
 
-                <Text> Itens a serem pedidos: {this.props.cartItems.length} </Text>
-                <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
-                    <Text style={styles.Text}>Enviar Pedido </Text>
-                </TouchableOpacity>
 
+
+
+                        <View style={styles.total_pedido}>
+                            <Text style={{ fontSize: 18 }}> Total: R$ 10.00</Text>
+                        </View>
+
+                        <Text> Itens a serem pedidos: {this.props.cartItems.length} </Text>
+                        <TouchableOpacity style={styles.btnLogin} onPress={() => this.alteracaoEstadoMesa()}>
+                            <Text style={styles.Text}>Enviar Pedido </Text>
+                        </TouchableOpacity>
+                    </View>
+                    : <Text>Sem Produtos a serem enviados</Text>
+                }
             </View>
         );
     }
@@ -125,26 +118,26 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 
-    titulo_mesa:{
+    titulo_mesa: {
         flexDirection: 'row',
         justifyContent: 'center',
         fontSize: 30,
     },
 
-    lista_pedido:{
+    lista_pedido: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 10,
     },
 
-    subtotal_pedido:{
+    subtotal_pedido: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         fontSize: 18,
         marginTop: 10,
     },
 
-    extra:{
+    extra: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         borderBottomColor: '#eee',
@@ -168,7 +161,7 @@ const styles = StyleSheet.create({
         marginTop: 15
     },
 
-    Text:{
+    Text: {
         fontSize: 30,
     }
 });

@@ -31,7 +31,7 @@ class Produto extends Component {
             value: this.props.productQuantity,
             count: 0
         };
-        this.increment = this.increment.bind(this);
+        
     }
 
     componentDidMount() {
@@ -43,7 +43,7 @@ class Produto extends Component {
     getProdutosApi = async () => {
         const { navigation } = this.props;
         const cd_subgrupo = navigation.getParam('cd_subgrupo', 'NO-ID');
-        return await fetch('http://192.168.1.179:1337/produtoS/27') //cd_subgrupo
+        return await fetch('http://192.168.1.179:1337/produtoS/19') //cd_subgrupo
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -51,35 +51,6 @@ class Produto extends Component {
                     produtos: responseJson,
                 });
             })
-    }
-
-    increment(e) {
-        this.setState(
-            prevState => ({
-                value: Number(prevState.value) + 1
-            }),
-            function () {
-                this.props.updateQuantity(this.state.value);
-            }
-        );
-        e.preventDefault();
-    }
-
-    feed(e) {
-        this.setState(
-            {
-                value: this.refs.feedQty.value
-            },
-            function () {
-                this.props.updateQuantity(this.state.value);
-            }
-        );
-    }
-
-    so_vai = () => {
-        this.setState({
-            count: this.state.count + 1
-        })
     }
 
     renderProduto = ({ item, index }) => {
@@ -105,7 +76,7 @@ class Produto extends Component {
                 </TouchableOpacity>
             </View>
         )
-    }
+    } 
 
     render() {
         const { navigation } = this.props;
