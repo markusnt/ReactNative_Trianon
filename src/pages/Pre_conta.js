@@ -10,7 +10,7 @@ import { Button } from "react-native-elements";
 
 width = Dimensions.get('window').width
 
-export default class Pedido extends Component {
+export default class Pre_Conta extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from "prop-types";
 import Icon from 'react-native-vector-icons/Ionicons';
 import ActionButton from 'react-native-action-button';
-import { connect } from 'react-redux'
+import { ProdutoList } from '../components/RenderProduto'
 
 import {
     Platform,
@@ -15,7 +15,7 @@ import {
 } from 'react-native'
 
 width = Dimensions.get('window').width
-class Produto extends Component {
+export default class Produto extends Component {
 
     static navigationOptions = {
         headerTitleStyle: {
@@ -31,7 +31,7 @@ class Produto extends Component {
             value: this.props.productQuantity,
             count: 0
         };
-        
+
     }
 
     componentDidMount() {
@@ -76,14 +76,14 @@ class Produto extends Component {
                 </TouchableOpacity>
             </View>
         )
-    } 
+    }
 
     render() {
         const { navigation } = this.props;
         const nr_mesa = navigation.getParam('nr_mesa', 'NO-ID');
         return (
             <View style={styles.container}>
-                <FlatList
+                 <FlatList
                     style={styles.itemList}
                     data={this.state.produtos}
                     keyExtractor={({ id }, index) => 'id' + index}
@@ -107,17 +107,6 @@ class Produto extends Component {
         );
     }
 }
-
-Produto.propTypes = {
-    value: PropTypes.number
-};
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addItemToCart: (produt) => dispatch({ type: 'ADD_TO_CART', payload: produt })
-    }
-}
-
-export default connect(null, mapDispatchToProps)(Produto);
 
 const styles = StyleSheet.create({
     container: {

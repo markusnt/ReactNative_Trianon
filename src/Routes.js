@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import { createStackNavigator, createAppContainer } from 'react-navigation'
-import HomeScreen from './screens/Home'
-import GrupoScreen from './screens/Grupos'
-import LoginScreen from './screens/Login'
-import SubGrupoScreen from './screens/SubGrupo'
-import ModalScreen from './screens/ModalExample'
-import ProdutoScreen from './screens/Produto'
-import PedidoScreen from './screens/Pedido'
-import PreContaScreen from './screens/Pre_conta'
+import HomeScreen from './pages/Home'
+import GrupoScreen from './pages/Grupos'
+import LoginScreen from './pages/Login'
+import SubGrupoScreen from './pages/SubGrupo'
+import ModalScreen from './pages/ModalExample'
+import ProdutoScreen from './pages/Produto'
+import PedidoScreen from './pages/Pedido'
+import PreContaScreen from './pages/Pre_conta'
 // Home:{
 //     screen: HomeScreen
 // },
@@ -32,4 +32,4 @@ const AppNavigator = createStackNavigator(
         }
 })
 
-export default createAppContainer(AppNavigator)
+    export default createAppContainer(AppNavigator)

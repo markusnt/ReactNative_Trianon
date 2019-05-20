@@ -52,12 +52,12 @@ export default class Login extends Component {
                         autoCapitalize="none" />
                 </View>
                 <View>
-                    <TextInput style={styles.input}
-                        placeholder="Senha..."
-                        placeholderTextColor={`rgba(255, 255, 255, 0.7)`}
-                        underlineColorAndroid='transparent'
-                        onChangeText={texto => this.setState({ senha: texto })}
-                        secureTextEntry={true} />
+                        <TextInput style={styles.input}
+                            placeholder="Senha..."
+                            placeholderTextColor={`rgba(255, 255, 255, 0.7)`}
+                            underlineColorAndroid='transparent'
+                            onChangeText={texto => this.setState({ senha: texto })}
+                            secureTextEntry={true} />
                 </View>
                 {/* <Button title='ENTRAR' color="#0080FF"
         onPress={() => this.props.navigation.navigate('Home')} /> */}
